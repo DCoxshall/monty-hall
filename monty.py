@@ -32,17 +32,23 @@ def monty(switch: bool) -> bool:
 
 if __name__ == "__main__":
     n = int(input("Input iterations: "))
-    print("Performing simulation " + str(n) + " times for both switching and non-switching")
+    print("Performing simulation " + str(n) + " times for switching")
 
     # Perform n simulations where the player chooses to switch
     success = 0
     failure = 0
+    progress = 0
         
     for i in range(n):
         if (monty(True)):
             success += 1
         else:
             failure += 1
+
+        prev_progress = progress
+        progress += 1 / n
+        if ((prev_progress * 100) // 10 != (progress * 100) // 10):
+            print("completed " + str(round(progress * 100, 0)) + "%")
 
     success = round(success, 2)
     failure = round(failure, 2)
@@ -51,8 +57,11 @@ if __name__ == "__main__":
 
     # Perform n simulations where the player chooses to stay
 
+    print("Performing simulation " + str(n) + " times for non-switching")
+
     success = 0
     failure = 0
+    progress = 0
         
     for i in range(n):
         if (monty(False)):
@@ -60,9 +69,14 @@ if __name__ == "__main__":
         else:
             failure += 1
 
+        prev_progress = progress
+        progress += 1 / n
+        if ((prev_progress * 100) // 10 != (progress * 100) // 10):
+            print("completed " + str(round(progress * 100, 0)) + "%")
+
     success = round(success, 2)
     failure = round(failure, 2)
 
     print("Stay success rate = " + str(success/(success + failure) * 100) + "%")
 
-
+    input()
